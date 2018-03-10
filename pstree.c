@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        while(entry=readdir(dirptr))
+        while((entry=readdir(dirptr)))
         {
     	    printf("filename%d=%s\n",i,entry->d_name);
     	    i++;
