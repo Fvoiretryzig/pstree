@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 	}
 	assert(!argv[argc]); // specification
 	DIR *dirptr=NULL;
-    int i=1;
+    i=1;
     struct dirent *entry;
     if((dirptr = opendir("/proc"))==NULL)
     {
