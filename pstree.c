@@ -30,12 +30,11 @@ void remove_space(char* s)
 
 	while(*pos1 != '\0')
 	{
-			
 		if(*pos1 != ' ')
 			*pos2++ = *pos1;
-		else
-			pos1++;
-	}printf("this is nearly end\n");
+		pos1++;
+	}
+	printf("this is nearly end\n");
 	*pos2 = '\0';
 	
 	printf("s:%s\n", s);
