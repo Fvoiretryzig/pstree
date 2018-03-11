@@ -12,7 +12,7 @@ struct pstree_node
 	pid_t ppid;
 	int children_cnt;
 	struct pstree_node *parent;
-	struct pstree_node *children;
+	struct pstree_node *children[128];
 	struct pstree_node *next;
 };
 struct pstree_node *list_head;
@@ -36,7 +36,7 @@ void insert_list(char *proc_name, pid_t proc_pid, pid_t proc_ppid)
 	if (node == NULL) 	
 	{		
 		printf("malloc failed\n");
-		return 1;
+		return;
 	}	
 	node->children_cnt = 0;
 	strcpy(node->name, proc_name);
