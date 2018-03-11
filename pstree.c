@@ -22,8 +22,8 @@ void remove_space(char *s)
 	while(*temp != '\0')
 	{
 		if(*temp != ' ')
-			*s ++= *p;
-		p++;
+			*s ++= *temp;
+		temp++;
 	}
 	*s = '\0';
 	return;
