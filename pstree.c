@@ -174,9 +174,9 @@ int main(int argc, char *argv[])
     	printf("my_pstree 0.0.1\n");
     else if(argc == 1)
     {
-    	for(struct pstree_node node = list_head; node!=NULL; node = node->next)
+    	for(struct pstree_node *node = list_head; node!=NULL; node = node->next)
     	{
-    		printf("name: %s (pid:%d)\n", root->name, root->pid);
+    		printf("name: %s (pid:%d)\n", node->name, node->pid);
     		if(node->parent == NULL)
     			print_tree(0, node, 0);
     	}
