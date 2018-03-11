@@ -68,7 +68,7 @@ void save_info(char* dirname)
 	if(pstree_file == NULL)
 	{
 		printf("this file does not exist\n");
-		return 1;
+		return;
 	}	
 	/*--------从status文件中读取ppid和pid以及name--------*/
 	while(fgets(buffer, sizeof(buffer), pstree_file) != NULL)
@@ -90,7 +90,7 @@ void save_info(char* dirname)
 		}
 	}
 	if(flag) 
-		insert_list(&proc_name, atoi(proc_pid), atoi(proc_ppid));
+		insert_list(&proc_name[0], atoi(proc_pid), atoi(proc_ppid));
 	return;
 }
 /*---------找节点---------*/
@@ -116,14 +116,14 @@ void create_tree()
 		if(parent_node != NULL)
 		{
 			cur_node->parent = parent_node;
-			parent_node->children[children_cnt++] = cur_node;
-			parent_node->children[children_cnt] = NULL;
+			parent_node->children[parent_node->children_cnt++] = cur_node;
+			parent_node->children[parent_node->children_cnt] = NULL;
 		}
 	}
 	return 0;
 }
 /*---------打印树---------*/
-void print_tree(int option, struct pstree_node root, int layer)
+void print_tree(int option, struct pstree_node *root, int layer)
 {
 	struct pstree_node temp;
 	for(int i = 1; i<=layer; i++)
@@ -172,7 +172,7 @@ int main(int argc, char *argv[])
     
     if(argv[1] == '-V' || argv[1] == '--version')
     	printf("my_pstree 0.0.1\n");
-    else if(agrc == 1)
+    else if(argc == 1)
     {
     	for(struct pstree_node node = list_head; node!=NULL; node = node->next)
     	{
