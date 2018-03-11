@@ -24,24 +24,24 @@ struct pstree_node *list_head;
 /*----------删除空格---------*/
 void remove_space(char *s)
 {
-	char *temp = s;
-	printf("s before dealing:%s\n", s);
-	while(*temp != '\0')
+	char *pos1 = s;
+	char *pos2 = s;
+	while(*pos1 != '\0')
 	{
-		if(*temp != ' ')
+		if(*pos1 != ' ')
 		{	
-			//*s ++= *temp;
-			*s = *temp;
-			//s++;
-			printf("s while dealing:%s ",s);
-			printf("the temp is %s\n", temp);
+			*pos2++ = *pos1;
 		}
-		temp++;
+		else
+		{
+			pos1++;
+		}
 	}
+	*pos2 = '\0';
 	char print_s[256];
 	strcpy(print_s, s);
 	//*s += '\0';
-	printf("print_s:%s %s\n", print_s, s);
+	printf("print_s:%s\n", print_s);
 	return;
 }
 /*----------建链表为了以后建树----------*/
