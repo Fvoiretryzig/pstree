@@ -30,7 +30,7 @@ void remove_space(char *s)
 	{
 		if(*temp != ' ')
 		{	
-			*temp++ = *s;
+			*s = *temp;
 			//*s ++= *temp;
 			//s = temp;
 			s++;
