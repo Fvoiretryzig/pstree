@@ -29,7 +29,10 @@ void remove_space(char *s)
 	while(*temp != '\0')
 	{
 		if(*temp != ' ')
+		{	
 			*s ++= *temp;
+			printf("s while dealing:%s\n",s);
+		}
 		temp++;
 	}
 	char print_s[256];
