@@ -34,7 +34,7 @@ void remove_space(char *s)
 			s = temp;
 			s++;
 			printf("s while dealing:%s\n",s);
-			printf("the temp is %s\n", temp[1]);
+			printf("the temp is %s\n", temp);
 		}
 		temp++;
 	}
