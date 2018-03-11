@@ -25,6 +25,7 @@ struct pstree_node *list_head;
 void remove_space(char *s)
 {
 	char *temp = s;
+	printf("s before dealing:%s\n", s);
 	while(*temp != '\0')
 	{
 		if(*temp != ' ')
