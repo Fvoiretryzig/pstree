@@ -167,7 +167,7 @@ int main(int argc, char *argv[])
         {
     	    //printf("filename%d=%s\n",i,entry->d_name);
     	    //i++;
-    	    if(entry->type == DT_DIR)
+    	    if(entry->d_type == DT_DIR)
     	    {
     	    	strcpy(&dirname[0], "/proc/");
     	    	strcat(&dirname[0], entry->d_name);
