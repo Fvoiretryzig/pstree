@@ -13,7 +13,7 @@ struct pstree_node
 	struct pstree_node *parent;
 	struct pstree_node *children;
 	struct pstree_node *next;
-}
+};
 struct pstree_node *list_head;
 /*----------删除空格---------*/
 void remove_space(char *s)
