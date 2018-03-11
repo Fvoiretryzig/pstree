@@ -30,7 +30,7 @@ void remove_space(char* s)
 
 	while(*pos1 != '\0')
 	{
-		if(*pos1 != ' ')
+		if(*pos1 != ' '&& *pos1 != '	')
 			*pos2++ = *pos1;
 		pos1++;
 	}
