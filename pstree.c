@@ -3,6 +3,7 @@
 #include <dirent.h>
 #include <string.h>
 #include <sys/types.h>
+#include <stdlib.h>
 
 struct pstree_node
 {
