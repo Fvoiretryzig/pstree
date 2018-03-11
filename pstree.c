@@ -30,13 +30,14 @@ void remove_space(char *s)
 	{
 		if(*temp != ' ')
 		{	
+			*temp++ = *s;
 			//*s ++= *temp;
-			s = temp;
+			//s = temp;
 			s++;
 			printf("s while dealing:%s\n",s);
 			printf("the temp is %s\n", temp);
 		}
-		temp++;
+		//temp++;
 	}
 	char print_s[256];
 	strcpy(print_s, s);
