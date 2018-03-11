@@ -34,7 +34,7 @@ void remove_space(char *s)
 	char print_s[256];
 	strcpy(print_s, s);
 	*s += '\0';
-	printf("print_s:%s\n", print_s);
+	printf("print_s:%s %s\n", print_s, s);
 	return;
 }
 /*----------建链表为了以后建树----------*/
