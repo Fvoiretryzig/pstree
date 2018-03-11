@@ -68,6 +68,7 @@ void save_info(char* dirname)
 	FILE* pstree_file;
 	/*--------打开每个进程里面的status--------*/
 	strcpy(filename, dirname);
+	printf("filename:%s\n", filename);
 	strcat(filename, "/status");
 	pstree_file = fopen(filename, "r");
 	if(pstree_file == NULL)
