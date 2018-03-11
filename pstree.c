@@ -27,9 +27,10 @@ void remove_space(char* s)
 	printf("this is remove_space\n");
 	char *pos1 = s;
 	char *pos2 = s;
-	printf("this is nearly end\n");
+
 	while(*pos1 != '\0')
 	{
+			printf("this is nearly end\n");
 		if(*pos1 != ' ')
 			*pos2++ = *pos1;
 		else
