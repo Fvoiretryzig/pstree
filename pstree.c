@@ -170,7 +170,8 @@ int main(int argc, char *argv[])
     	closedir(dirptr);
     }
     
-    if(*argv[1] == '-V' || *argv[1] == '--version')
+    // if(*argv[1] == '-V' || *argv[1] == '--version')
+    if(!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))
     	printf("my_pstree 0.0.1\n");
     else if(argc == 1)
     {
