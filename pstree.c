@@ -154,6 +154,7 @@ int main(int argc, char *argv[])
 	/*--------打开文件--------*/
 	DIR *dirptr=NULL;
     struct dirent *entry;
+    char dirname[256];
     if((dirptr = opendir("/proc"))==NULL)
     {
         printf("opendir failed!");
@@ -161,16 +162,23 @@ int main(int argc, char *argv[])
     }
     else
     {
-    	int i = 1 ;
+    	//int i = 1 ;
         while((entry=readdir(dirptr)))
         {
-    	    printf("filename%d=%s\n",i,entry->d_name);
-    	    i++;
+    	    //printf("filename%d=%s\n",i,entry->d_name);
+    	    //i++;
+    	    if(entry->type == DT_DIR)
+    	    {
+    	    	strcpy(&dirname[0], "/proc/");
+    	    	strcat(&dirname[0], entry->d_name);
+    	    	if(entry->d_name[0]>48 && entry->d_name[0]<=57)
+    	    		save_info(dirname);
+    	    }
         }
     	closedir(dirptr);
     }
     
-    // if(*argv[1] == '-V' || *argv[1] == '--version')
+	create_tree();
     if(!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))
     	printf("my_pstree 0.0.1\n");
     else if(argc == 1)
