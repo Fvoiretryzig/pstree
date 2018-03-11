@@ -35,6 +35,7 @@ void remove_space(char* s)
 			pos1++;
 	}
 	*pos2 = '\0';
+	printf("this is nearly end\n");
 	printf("s:%s\n", s);
 	return;
 }
