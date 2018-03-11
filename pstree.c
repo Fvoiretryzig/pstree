@@ -1,3 +1,7 @@
+#define _DEFAULT_SOURCE
+#define _BSD_SOURCE
+
+
 #include <stdio.h>
 #include <assert.h>
 #include <dirent.h>
@@ -5,8 +9,7 @@
 #include <sys/types.h>
 #include <stdlib.h>
 
-#define _DEFAULT_SOURCE
-#define _BSD_SOURCE
+
 
 struct pstree_node
 {
