@@ -83,7 +83,7 @@ void save_info(char* dirname)
 		if(header != NULL && content != NULL)
 		{
 			remove_space(header); remove_space(content);
-			printf("header:%s content:%s\n", header, content);
+			//printf("header:%s content:%s\n", header, content);
 			if(!strcmp(header, "Name"))
 				strcpy(proc_name, content);
 			else if(!strcmp(header, "Pid"))
@@ -96,6 +96,7 @@ void save_info(char* dirname)
 	}
 	if(flag) 
 		insert_list(&proc_name[0], atoi(proc_pid), atoi(proc_ppid));
+	printf("this is %s\n", proc_name);
 	return;
 }
 /*---------找节点---------*/
