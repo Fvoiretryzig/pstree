@@ -24,6 +24,7 @@ struct pstree_node *list_head;
 /*----------删除空格---------*/
 void remove_space(char *s)
 {
+	printf("this is remove_space\n");
 	char *pos1 = s;
 	char *pos2 = s;
 	while(*pos1 != '\0')
