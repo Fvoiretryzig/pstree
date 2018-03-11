@@ -120,12 +120,12 @@ void create_tree()
 			parent_node->children[parent_node->children_cnt] = NULL;
 		}
 	}
-	return 0;
+	return;
 }
 /*---------打印树---------*/
 void print_tree(int option, struct pstree_node *root, int layer)
 {
-	struct pstree_node temp;
+	struct pstree_node *temp;
 	for(int i = 1; i<=layer; i++)
 		printf("	");
 	switch(option)
@@ -170,7 +170,7 @@ int main(int argc, char *argv[])
     	closedir(dirptr);
     }
     
-    if(argv[1] == '-V' || argv[1] == '--version')
+    if(*argv[1] == '-V' || *argv[1] == '--version')
     	printf("my_pstree 0.0.1\n");
     else if(argc == 1)
     {
