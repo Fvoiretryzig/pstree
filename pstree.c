@@ -32,7 +32,7 @@ void remove_space(char *s)
 		{	
 			//*s ++= *temp;
 			*s = *temp;
-			s++;
+			//s++;
 			printf("s while dealing:%s ",s);
 			printf("the temp is %s\n", temp);
 		}
