@@ -31,9 +31,9 @@ void remove_space(char *s)
 			*s ++= *temp;
 		temp++;
 	}
-	char print_temp[256];
-	strcpy(print_temp, temp);
-	printf("print_temp:%s\n", print_temp);
+	char print_s[256];
+	strcpy(print_s, s);
+	printf("print_s:%s\n", print_s);
 	*s = '\0';
 	return;
 }
