@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <dirent.h>
 #include <string.h>
+#include <sys/types.h>
 
 struct pstree_node
 {
