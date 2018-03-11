@@ -5,6 +5,8 @@
 #include <sys/types.h>
 #include <stdlib.h>
 
+#define _BSD_SOURCE
+
 struct pstree_node
 {
 	char name[128];
