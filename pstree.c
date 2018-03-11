@@ -22,7 +22,7 @@ struct pstree_node
 };
 struct pstree_node *list_head;
 /*----------删除空格---------*/
-void remove_space(char *s)
+void remove_space(char* s)
 {
 	printf("this is remove_space\n");
 	char *pos1 = s;
@@ -30,19 +30,12 @@ void remove_space(char *s)
 	while(*pos1 != '\0')
 	{
 		if(*pos1 != ' ')
-		{	
 			*pos2++ = *pos1;
-		}
 		else
-		{
 			pos1++;
-		}
 	}
 	*pos2 = '\0';
-	char print_s[256];
-	strcpy(print_s, s);
-	//*s += '\0';
-	printf("print_s:%s\n", print_s);
+	printf("s:%s\n", s);
 	return;
 }
 /*----------建链表为了以后建树----------*/
