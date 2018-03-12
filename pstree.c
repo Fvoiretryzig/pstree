@@ -150,11 +150,11 @@ void print_tree(int option, struct pstree_node *root, int layer)
 	{
 		default:
 			printf("(pid:%d)%s", root->pid, root->name);
-			if(root->pid == 2092)
-				printf("root->children:%d\n", root->children[0]->pid);
+			//if(root->pid == 2092)
+			//	printf("root->children:%d\n", root->children[0]->pid);
 			
 			//printf("childeren count:%d\n", root->children_cnt);
-			for(int i = 1; i<=root->children_cnt; i++)
+			for(int i = 0; i<=root->children_cnt; i++)
 			{
 				temp = root->children[i];
 				print_tree(1, temp, ++layer);
