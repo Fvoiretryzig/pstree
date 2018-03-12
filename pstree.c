@@ -192,6 +192,7 @@ int main(int argc, char *argv[])
     }
     
 	create_tree();
+	printf("create tree is over\n");
     if(!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))
     	printf("my_pstree 0.0.1\n");
     else if(argc == 1)
