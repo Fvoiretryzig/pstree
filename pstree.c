@@ -193,19 +193,21 @@ int main(int argc, char *argv[])
     
 	create_tree();
 	//printf("create tree is over\n");
-	for(struct pstree_node *node = list_head; node != NULL; node = node->next)
+	/*for(struct pstree_node *node = list_head; node != NULL; node = node->next)
 	{
 		printf("name:%s(pid:%d ppid:%d)\n", node->name, node->pid, node->ppid);
-	}
+	}*/
     if(!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))
     	printf("my_pstree 0.0.1\n");
     else if(argc == 1)
     {
     	for(struct pstree_node *node = list_head; node!=NULL; node = node->next)
     	{
-    		printf("name: %s (pid:%d)\n", node->name, node->pid);
     		if(node->parent == NULL)
+    		{
+    			printf("node:%s pid:%d\n", node->name, node->pid);
     			print_tree(0, node, 0);
+    		}
     	}
     }
   return 0;
