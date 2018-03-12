@@ -203,7 +203,7 @@ int main(int argc, char *argv[])
     {
     	for(struct pstree_node *node = list_head; node!=NULL; node = node->next)
     	{
-    		printf("node:%s pid:%d\n", node->name, node->pid);
+    		//printf("node:%s pid:%d\n", node->name, node->pid);
     		if(node->parent == NULL)
     		{
     			printf("node:%s pid:%d\n", node->name, node->pid);
