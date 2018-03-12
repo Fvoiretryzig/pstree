@@ -131,9 +131,11 @@ void create_tree()
 		{
 			cur_node->parent = parent_node;
 			parent_node->children[parent_node->children_cnt] = cur_node;
+			printf("parent_node->children_cnt:%d ", parent_node->children_cnt);
 			parent_node->children_cnt++;
+			printf("parent_node->children_cnt:%d\n", parent_node->children_cnt);
 			parent_node->children[parent_node->children_cnt] = NULL;
-			printf("parent_node:%s pid:%d children count:%d\n",parent_node->name, parent_node->pid, parent_node->children_cnt);
+			//printf("parent_node:%s pid:%d children count:%d\n",parent_node->name, parent_node->pid, parent_node->children_cnt);
 		}
 	}
 	return;
