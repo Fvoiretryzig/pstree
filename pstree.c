@@ -129,12 +129,12 @@ void create_tree()
 			parent_node = find_node(cur_node->ppid);
 		if(parent_node != NULL)
 		{
-			printf("parent_node:%d children:%d parent_children:%d\n", parent_node->pid, cur_node->pid, parent_node->children_cnt);
+			//printf("parent_node:%d children:%d parent_children:%d\n", parent_node->pid, cur_node->pid, parent_node->children_cnt);
 			cur_node->parent = parent_node;
 			parent_node->children[parent_node->children_cnt] = cur_node;
 			parent_node->children_cnt++;
 			parent_node->children[parent_node->children_cnt] = NULL;
-			printf("parent_node:%d children:%d parent_children:%d\n\n", parent_node->pid, cur_node->pid, parent_node->children_cnt);
+			//printf("parent_node:%d children:%d parent_children:%d\n\n", parent_node->pid, cur_node->pid, parent_node->children_cnt);
 		}
 	}
 	return;
@@ -144,7 +144,7 @@ void print_tree(int option, struct pstree_node *root, int layer)
 {
 	struct pstree_node *temp;
 	for(int i = 1; i<=layer; i++)
-		printf("	");
+		printf(" ");
 	printf("|+");
 	switch(option)
 	{
