@@ -159,7 +159,7 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			}
 			break;
 		default:	//默认
-			printf("%s", root->pid, root->name);
+			printf("%s", root->name);
 			for(int i = 0; i<root->children_cnt; i++)
 			{
 				temp = root->children[i];
