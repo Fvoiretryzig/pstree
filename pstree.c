@@ -155,6 +155,7 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			{
 				temp = root->children[i];
 				print_tree(1, temp, ++layer);
+				layer--;
 			}
 			break;
 	}
