@@ -123,7 +123,7 @@ void create_tree()
 	struct pstree_node *parent_node = NULL;
 	for(cur_node = list_head; cur_node != NULL; cur_node = cur_node->next)	//对每个节点进行遍历找到父亲和孩子
 	{
-		printf("cur_node->ppid:%d\n", cur_node->ppid);
+		//printf("cur_node->ppid:%d\n", cur_node->ppid);
 		if(cur_node->ppid)
 			parent_node = find_node(cur_node->pid);
 		if(parent_node != NULL)
@@ -132,6 +132,8 @@ void create_tree()
 			parent_node->children[parent_node->children_cnt++] = cur_node;
 			parent_node->children[parent_node->children_cnt] = NULL;
 		}
+		if(parent_node == NULL)
+			printf("cur_node pid:%d\n", cur_node->pid);
 	}
 	return;
 }
