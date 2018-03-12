@@ -89,7 +89,7 @@ void save_info(char* dirname)
 		if(header != NULL && content != NULL)
 		{
 			remove_space(header); remove_space(content);
-			printf("header:%s content:%s\n", header, content);
+			//printf("header:%s content:%s\n", header, content);
 			if(!strcmp(header, "Name"))
 				strcpy(proc_name, content);
 			else if(!strcmp(header, "Pid"))
