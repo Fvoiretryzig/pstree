@@ -212,7 +212,7 @@ int main(int argc, char *argv[])
     		//printf("node:%s pid:%d\n", node->name, node->pid);
     		if(node->parent == NULL)
     		{
-    			printf("node:%s pid:%d\n", node->name, node->pid);
+    			//printf("node:%s pid:%d\n", node->name, node->pid);
     			print_tree(0, node, 0);
     		}
     	}
