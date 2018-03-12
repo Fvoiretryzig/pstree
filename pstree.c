@@ -124,8 +124,7 @@ void create_tree()
 	
 	for(cur_node = list_head; cur_node != NULL; cur_node = cur_node->next)	//对每个节点进行遍历找到父亲和孩子
 	{
-		//printf("cur_node->ppid:%d\n", cur_node->ppid);
-		parent_node = NULL;
+		parent_node = NULL;	//！！！！！要初始化！！！！！
 		if(cur_node->ppid)
 			parent_node = find_node(cur_node->pid);
 		if(parent_node != NULL)
@@ -134,8 +133,6 @@ void create_tree()
 			parent_node->children[parent_node->children_cnt++] = cur_node;
 			parent_node->children[parent_node->children_cnt] = NULL;
 		}
-		if(parent_node == NULL)
-			printf("cur_node pid:%d\n", cur_node->pid);
 	}
 	return;
 }
@@ -150,6 +147,7 @@ void print_tree(int option, struct pstree_node *root, int layer)
 	{
 		default:
 			printf("name: %s (pid:%d)\n", root->name, root->pid);
+			printf("childeren count:%d\n", root->children_cnt);
 			for(int i = 1; i<=root->children_cnt; i++)
 			{
 				temp = root->children[i];
@@ -212,7 +210,6 @@ int main(int argc, char *argv[])
     		if(node->parent == NULL)
     		{
     			printf("node:%s pid:%d\n", node->name, node->pid);
-    			//assert(0);
     			print_tree(0, node, 0);
     		}
     	}
