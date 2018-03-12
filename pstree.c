@@ -215,7 +215,7 @@ int main(int argc, char *argv[])
 	{
     	if(!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))
     		printf("my_pstree 0.0.1\n");
-    	if(!strcmp(argv[1], "-p"))
+    	//if(!strcmp(argv[1], "-p"))
     }
     
     if(argc == 1)
