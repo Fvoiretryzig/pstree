@@ -227,7 +227,18 @@ int main(int argc, char *argv[])
 	{
     	if(!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))
     		printf("my_pstree 0.0.1\n");
-    	//if(!strcmp(argv[1], "-p"))
+    	if(!strcmp(argv[1], "-p") || !strcmp(argv[1], "--show-pids"))
+    	{
+    		for(struct pstree_node *node = list_head; node!=NULL; node = node->next)
+	    	{
+	    		//printf("%s pid:%d\n", node->name, node->pid);
+	    		if(node->parent == NULL)
+	    		{
+	    			//printf("|+%s pid:%d\n", node->name, node->pid);
+	    			print_tree(1, node, 0);
+	    		}
+	    	}    		
+    	}
     }
     
     if(argc == 1)
