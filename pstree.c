@@ -153,7 +153,7 @@ void print_tree(int option, struct pstree_node *root, int layer)
 		int len = strlen(print_temp->name);
 		for(int i = 0; i<len-1; i++)
 			printf(" ");
-		print_temp = root->parent;		
+		print_temp = print_temp->parent;		
 	}
 	if(layer)
 		printf("|--");
