@@ -144,7 +144,7 @@ void print_tree(int option, struct pstree_node *root, int layer)
 {
 	struct pstree_node *temp;
 	for(int i = 1; i<=layer; i++)
-		printf(" ");
+		printf("	");
 	printf("|+");
 	switch(option)
 	{
