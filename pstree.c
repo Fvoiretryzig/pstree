@@ -190,15 +190,14 @@ int main(int argc, char *argv[])
         }
     	closedir(dirptr);
     }
-    printf("argc:%d\n", argc);
 	create_tree();
-	printf("create tree is over\n");
 	/*for(struct pstree_node *node = list_head; node != NULL; node = node->next)
 	{
 		printf("name:%s(pid:%d ppid:%d)\n", node->name, node->pid, node->ppid);
 	}*/
-    if(!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))
-    	printf("my_pstree 0.0.1\n");
+	if(argc > 1)
+    	if(!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))
+    		printf("my_pstree 0.0.1\n");
     
     if(argc == 1)
     {
@@ -208,6 +207,7 @@ int main(int argc, char *argv[])
     		if(node->parent == NULL)
     		{
     			printf("node:%s pid:%d\n", node->name, node->pid);
+    			assert(0);
     			print_tree(0, node, 0);
     		}
     	}
