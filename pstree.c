@@ -126,7 +126,7 @@ void create_tree()
 	{
 		parent_node = NULL;	//！！！！！要初始化！！！！！
 		if(cur_node->ppid)
-			parent_node = find_node(cur_node->pid);
+			parent_node = find_node(cur_node->ppid);
 		if(parent_node != NULL)
 		{
 			printf("parent_node:%d children:%d parent_children:%d\n", parent_node->pid, cur_node->pid, parent_node->children_cnt);
