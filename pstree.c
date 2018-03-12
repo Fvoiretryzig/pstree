@@ -149,12 +149,21 @@ void print_tree(int option, struct pstree_node *root, int layer)
 		printf("|--");
 	switch(option)
 	{
-		default:
+		case 1:		//打印pid的选项
 			printf("(pid:%d)%s", root->pid, root->name);
 			for(int i = 0; i<root->children_cnt; i++)
 			{
 				temp = root->children[i];
-				print_tree(1, temp, ++layer);
+				print_tree(0, temp, ++layer);
+				layer--;
+			}
+			break;
+		default:	//默认
+			printf("%s", root->pid, root->name);
+			for(int i = 0; i<root->children_cnt; i++)
+			{
+				temp = root->children[i];
+				print_tree(0, temp, ++layer);
 				layer--;
 			}
 			break;
@@ -203,8 +212,11 @@ int main(int argc, char *argv[])
 		printf("name:%s(pid:%d ppid:%d)\n", node->name, node->pid, node->ppid);
 	}*/
 	if(argc > 1)
+	{
     	if(!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))
     		printf("my_pstree 0.0.1\n");
+    	if(!strcmp(argv[1], "-p"))
+    }
     
     if(argc == 1)
     {
