@@ -151,7 +151,7 @@ void print_tree(int option, struct pstree_node *root, int layer)
 	while(print_temp)
 	{
 		int len = strlen(print_temp->name);
-		if(layer == 1)
+		if(print_temp->pid == 1)
 			len -= 2;
 		for(int i = 0; i<len+1; i++)
 			printf(" ");
