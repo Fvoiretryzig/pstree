@@ -120,10 +120,12 @@ struct pstree_node* find_node(pid_t pid)
 void create_tree()
 {
 	struct pstree_node *cur_node;
-	struct pstree_node *parent_node = NULL;
+	struct pstree_node *parent_node;
+	
 	for(cur_node = list_head; cur_node != NULL; cur_node = cur_node->next)	//对每个节点进行遍历找到父亲和孩子
 	{
 		//printf("cur_node->ppid:%d\n", cur_node->ppid);
+		parent_node = NULL;
 		if(cur_node->ppid)
 			parent_node = find_node(cur_node->pid);
 		if(parent_node != NULL)
