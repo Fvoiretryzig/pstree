@@ -149,7 +149,7 @@ void print_tree(int option, struct pstree_node *root, int layer)
 	switch(option)
 	{
 		default:
-			printf("%s(pid:%d)", root->name, root->pid);
+			printf("(pid:%d)%s\n", root->pid, root->name);
 			//printf("childeren count:%d\n", root->children_cnt);
 			for(int i = 1; i<=root->children_cnt; i++)
 			{
