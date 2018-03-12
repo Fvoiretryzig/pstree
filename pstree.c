@@ -207,7 +207,7 @@ int main(int argc, char *argv[])
     		if(node->parent == NULL)
     		{
     			printf("node:%s pid:%d\n", node->name, node->pid);
-    			assert(0);
+    			//assert(0);
     			print_tree(0, node, 0);
     		}
     	}
