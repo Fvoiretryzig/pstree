@@ -143,8 +143,8 @@ void create_tree()
 void print_tree(int option, struct pstree_node *root, int layer)
 {
 	struct pstree_node *temp;
-	for(int i = 1; i<=layer; i++)
-		printf("	");
+	//for(int i = 1; i<=layer; i++)
+	//	printf("	");
 	struct pstree_node *print_temp = NULL;
 	if(root->parent != NULL)
 		print_temp = root->parent;
