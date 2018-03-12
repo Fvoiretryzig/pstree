@@ -135,7 +135,6 @@ void create_tree()
 			parent_node->children_cnt++;
 			printf("parent_node->children_cnt:%d\n", parent_node->children_cnt);
 			parent_node->children[parent_node->children_cnt] = NULL;
-			//printf("parent_node:%s pid:%d children count:%d\n",parent_node->name, parent_node->pid, parent_node->children_cnt);
 		}
 	}
 	return;
@@ -150,7 +149,7 @@ void print_tree(int option, struct pstree_node *root, int layer)
 	switch(option)
 	{
 		default:
-			printf("name: %s (pid:%d)\n", root->name, root->pid);
+			//printf("name: %s (pid:%d)\n", root->name, root->pid);
 			printf("childeren count:%d\n", root->children_cnt);
 			for(int i = 1; i<=root->children_cnt; i++)
 			{
