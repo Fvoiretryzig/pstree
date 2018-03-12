@@ -102,7 +102,7 @@ void save_info(char* dirname)
 	}
 	if(flag) 
 		insert_list(&proc_name[0], atoi(proc_pid), atoi(proc_ppid));
-	printf("this is %s\n", proc_name);
+	//printf("this is %s\n", proc_name);
 	return;
 }
 /*---------找节点---------*/
