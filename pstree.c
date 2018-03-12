@@ -200,7 +200,7 @@ int main(int argc, char *argv[])
     if(!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))
     	printf("my_pstree 0.0.1\n");
     printf("argc:%d\n", argc);
-    else if(argc == 1)
+    if(argc == 1)
     {
     	for(struct pstree_node *node = list_head; node!=NULL; node = node->next)
     	{
