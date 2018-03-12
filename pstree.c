@@ -52,7 +52,7 @@ void insert_list(char *proc_name, pid_t proc_pid, pid_t proc_ppid)
 	strcpy(node->name, proc_name);
 	node->pid = proc_pid; node->ppid = proc_ppid;
 	node->children[0] = NULL; node->parent = NULL;
-	printf("pid:%d ppid:%d\n", proc_pid, proc_ppid);
+	//printf("pid:%d ppid:%d\n", proc_pid, proc_ppid);
 	node->next = list_head;
 	list_head = node;
 	
@@ -150,7 +150,7 @@ void print_tree(int option, struct pstree_node *root, int layer)
 	{
 		default:
 			printf("(pid:%d)%s", root->pid, root->name);
-			printf("childeren count:%d\n", root->children_cnt);
+			//printf("childeren count:%d\n", root->children_cnt);
 			for(int i = 1; i<=root->children_cnt; i++)
 			{
 				temp = root->children[i];
