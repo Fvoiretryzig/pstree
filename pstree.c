@@ -221,7 +221,7 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			for(int i = 0; i<root->children_cnt; i++)
 			{
 				temp = root->children[i];
-				print_tree(2, temp, ++layer);
+				print_tree(3, temp, ++layer);
 				layer--;
 			}
 			break;		
@@ -307,10 +307,10 @@ int main(int argc, char *argv[])
 	    		}
 	    	}       		
     	}
-    	/*if(((!strcmp(argv[1], "-n")||(!strcmp(argv[1], "--ns-sort")))&&
-    	  (!strcmp(argv[2], "-p")||(!strcmp(argv[2], "--show-pids")))) || 
-    	  ((!strcmp(argv[2], "-n")||(!strcmp(argv[2], "--ns-sort")))&&
-    	  (!strcmp(argv[1], "-p")||(!strcmp(argv[1], "--show-pids")))) )
+    	if(argv == 3 && ((!strcmp(argv[1], "-n") || !strcmp(argv[1], "--ns-sort")) || 
+    		(!strcmp(argv[2], "-n") || !strcmp(argv[2], "--ns-sort"))))
+    		if(((!strcmp(argv[1], "-p") || !strcmp(argv[1], "--show-pids")) || 
+    		(!strcmp(argv[2], "-p") || !strcmp(argv[2], "--show-pids"))))
 		{
     		for(struct pstree_node *node = list_head; node!=NULL; node = node->next)
 	    	{
@@ -319,7 +319,7 @@ int main(int argc, char *argv[])
 	    			print_tree(3, node, 0);
 	    		}
 	    	}  
-		}*/
+		}
     }
     
     if(argc == 1)
