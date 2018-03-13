@@ -225,7 +225,6 @@ void print_tree(int option, struct pstree_node *root, int layer)
 				layer--;
 			}
 			break;		
-			break;
 		default:	//默认
 			printf("%s", root->name);
 			for(int i = 0; i<root->children_cnt; i++)
@@ -308,7 +307,7 @@ int main(int argc, char *argv[])
 	    		}
 	    	}       		
     	}
-    	if(((!strcmp(argv[1], "-n")||(!strcmp(argv[1], "--ns-sort")))&&
+    	/*if(((!strcmp(argv[1], "-n")||(!strcmp(argv[1], "--ns-sort")))&&
     	  (!strcmp(argv[2], "-p")||(!strcmp(argv[2], "--show-pids")))) || 
     	  ((!strcmp(argv[2], "-n")||(!strcmp(argv[2], "--ns-sort")))&&
     	  (!strcmp(argv[1], "-p")||(!strcmp(argv[1], "--show-pids")))) )
@@ -320,7 +319,7 @@ int main(int argc, char *argv[])
 	    			print_tree(3, node, 0);
 	    		}
 	    	}  
-		}
+		}*/
     }
     
     if(argc == 1)
