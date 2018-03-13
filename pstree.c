@@ -140,7 +140,7 @@ void create_tree()
 	return;
 }
 /*---------一个简单的排序---------*/
-void sort(int a[], int n)
+/*void sort(int a[], int n)
 {
 	for(int i = 0; i<n; i++)
 	{
@@ -155,6 +155,22 @@ void sort(int a[], int n)
 		}
 	}
 	return;
+}*/
+void pstree_node_sort(struct pstree_node *node)
+{
+	int n = node->children_cnt;
+	for(int i = 0; i<n; i++)
+	{
+		for(int j = 0; j<n-i-1; j++)
+		{
+			if(node->children[i]->pid > node->children[j]->pid)
+			{
+				struct pstree_node temp = node->children[i];
+				node->children[i] = node->children[j];
+				node->children[j] = temp;
+			}
+		}
+	}
 }
 /*---------打印树---------*/
 void print_tree(int option, struct pstree_node *root, int layer)
@@ -184,6 +200,17 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			{
 				temp = root->children[i];
 				print_tree(1, temp, ++layer);
+				layer--;
+			}
+			break;
+		case 2:
+			printf("(pid:%d)%s",root->pid, root->name);
+			if(root->children[1]!=NULL)
+				pstree_node_sort(root);
+			for(int i = 0; i<root->children_cnt; i++)
+			{
+				temp = root->children[i];
+				print_tree(2, temp, ++layer);
 				layer--;
 			}
 			break;
@@ -256,7 +283,7 @@ int main(int argc, char *argv[])
 	    		}
 	    	}    		
     	}
-/*    	if(!strcmp(argv[1], "-n") || !strcmp(argv[1], "--ns-sort"))
+    	if(!strcmp(argv[1], "-n") || !strcmp(argv[1], "--ns-sort"))
     	{
     		for(struct pstree_node *node = list_head; node!=NULL; node = node->next)
 	    	{
@@ -264,11 +291,11 @@ int main(int argc, char *argv[])
 	    		if(node->parent == NULL)
 	    		{
 	    			//printf("|+%s pid:%d\n", node->name, node->pid);
-	    			sort()
-	    			print_tree(1, node, 0);
+	    			//pstree_node_sort(node);
+	    			print_tree(2, node, 0);
 	    		}
 	    	}       		
-    	}*/
+    	}
     }
     
     if(argc == 1)
