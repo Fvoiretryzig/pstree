@@ -178,8 +178,6 @@ void pstree_node_sort(struct pstree_node *node)
 void print_tree(int option, struct pstree_node *root, int layer)
 {
 	struct pstree_node *temp;
-	//for(int i = 1; i<=layer; i++)
-	//	printf("	");
 	struct pstree_node *print_temp = NULL;
 	if(root->parent != NULL)
 		print_temp = root->parent;
@@ -206,6 +204,17 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			}
 			break;
 		case 2:
+			printf("%s", root->name);
+			if(root->children[1]!=NULL)
+				pstree_node_sort(root);
+			for(int i = 0; i<root->children_cnt; i++)
+			{
+				temp = root->children[i];
+				print_tree(2, temp, ++layer);
+				layer--;
+			}
+			break;
+		case 3:
 			printf("(pid:%d)%s",root->pid, root->name);
 			if(root->children[1]!=NULL)
 				pstree_node_sort(root);
@@ -215,6 +224,7 @@ void print_tree(int option, struct pstree_node *root, int layer)
 				print_tree(2, temp, ++layer);
 				layer--;
 			}
+			break;		
 			break;
 		default:	//默认
 			printf("%s", root->name);
@@ -298,6 +308,19 @@ int main(int argc, char *argv[])
 	    		}
 	    	}       		
     	}
+    	if(((!strcmp(argv[1], "-n")||(!strcmp(argv[1], "--ns-sort")))&&
+    	  (!strcmp(argv[2], "-p")||(!strcmp(argv[2], "--show-pids")))) || 
+    	  ((!strcmp(argv[2], "-n")||(!strcmp(argv[2], "--ns-sort")))&&
+    	  (!strcmp(argv[1], "-p")||(!strcmp(argv[1], "--show-pids")))) )
+		{
+    		for(struct pstree_node *node = list_head; node!=NULL; node = node->next)
+	    	{
+	    		if(node->parent == NULL)
+	    		{
+	    			print_tree(3, node, 0);
+	    		}
+	    	}  
+		}
     }
     
     if(argc == 1)
