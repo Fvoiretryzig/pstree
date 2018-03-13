@@ -283,9 +283,8 @@ int main(int argc, char *argv[])
 	{
     	if(!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))
     		printf("my_pstree 0.0.1\n");
-    	if(argc==2 && (strcmp(argv[1], "-p") || !strcmp(argv[1], "--show-pids")))
+    	if(argc==2 && (!strcmp(argv[1], "-p") || !strcmp(argv[1], "--show-pids")))
     	{
-    		printf("agrv[1]:%s\n", argv[1]);
     		for(struct pstree_node *node = list_head; node!=NULL; node = node->next)
 	    	{
 	    		//printf("%s pid:%d\n", node->name, node->pid);
