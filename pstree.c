@@ -163,14 +163,14 @@ void pstree_node_sort(struct pstree_node *node)
 	{
 		for(int j = i+1; j<n; j++)
 		{
-			printf("children[i]:%d children[j]:%d\n",node->children[i]->pid, node->children[j]->pid );
+			//printf("children[i]:%d children[j]:%d\n",node->children[i]->pid, node->children[j]->pid );
 			if(node->children[i]->pid > node->children[j]->pid)
 			{
 				struct pstree_node *temp = node->children[i];
 				node->children[i] = node->children[j];
 				node->children[j] = temp;
 			}
-			printf("children[i]:%d children[j]:%d\n\n",node->children[i]->pid, node->children[j]->pid );
+			//printf("children[i]:%d children[j]:%d\n\n",node->children[i]->pid, node->children[j]->pid );
 		}
 	}
 }
