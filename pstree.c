@@ -307,7 +307,7 @@ int main(int argc, char *argv[])
 	    		}
 	    	}       		
     	}
-    	if(argv == 3 && ((!strcmp(argv[1], "-n") || !strcmp(argv[1], "--ns-sort")) || 
+    	if(argc==3 && ((!strcmp(argv[1], "-n") || !strcmp(argv[1], "--ns-sort")) || 
     		(!strcmp(argv[2], "-n") || !strcmp(argv[2], "--ns-sort"))))
     		if(((!strcmp(argv[1], "-p") || !strcmp(argv[1], "--show-pids")) || 
     		(!strcmp(argv[2], "-p") || !strcmp(argv[2], "--show-pids"))))
