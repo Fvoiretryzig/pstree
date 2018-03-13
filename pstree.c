@@ -139,6 +139,23 @@ void create_tree()
 	}
 	return;
 }
+/*---------一个简单的排序---------*/
+void sort(int a[], int n)
+{
+	for(int i = 0; i<n; i++)
+	{
+		for(int j = 0; j< n-i-1; j++)
+		{
+			if(a[i] > a[j])
+			{
+				int temp = a[i];
+				a[i] = a[j];
+				a[j] = temp;
+			}
+		}
+	}
+	return;
+}
 /*---------打印树---------*/
 void print_tree(int option, struct pstree_node *root, int layer)
 {
@@ -239,6 +256,19 @@ int main(int argc, char *argv[])
 	    		}
 	    	}    		
     	}
+/*    	if(!strcmp(argv[1], "-n") || !strcmp(argv[1], "--ns-sort"))
+    	{
+    		for(struct pstree_node *node = list_head; node!=NULL; node = node->next)
+	    	{
+	    		//printf("%s pid:%d\n", node->name, node->pid);
+	    		if(node->parent == NULL)
+	    		{
+	    			//printf("|+%s pid:%d\n", node->name, node->pid);
+	    			sort()
+	    			print_tree(1, node, 0);
+	    		}
+	    	}       		
+    	}*/
     }
     
     if(argc == 1)
