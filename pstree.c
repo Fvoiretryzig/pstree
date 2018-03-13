@@ -165,7 +165,7 @@ void pstree_node_sort(struct pstree_node *node)
 		{
 			if(node->children[i]->pid > node->children[j]->pid)
 			{
-				struct pstree_node temp = node->children[i];
+				struct pstree_node *temp = node->children[i];
 				node->children[i] = node->children[j];
 				node->children[j] = temp;
 			}
