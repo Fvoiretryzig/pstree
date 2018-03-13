@@ -170,7 +170,7 @@ void pstree_node_sort(struct pstree_node *node)
 				node->children[i] = node->children[j];
 				node->children[j] = temp;
 			}
-			printf("children[i]:%d children[j]:%d\n",node->children[i]->pid, node->children[j]->pid );
+			printf("children[i]:%d children[j]:%d\n\n",node->children[i]->pid, node->children[j]->pid );
 		}
 	}
 }
