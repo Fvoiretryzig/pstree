@@ -161,7 +161,7 @@ void pstree_node_sort(struct pstree_node *node)
 	int n = node->children_cnt;
 	for(int i = 0; i<n; i++)
 	{
-		for(int j = 0; j<n-i-1; j++)
+		for(int j = i+1; j<n; j++)
 		{
 			printf("children[i]:%d children[j]:%d\n",node->children[i]->pid, node->children[j]->pid );
 			if(node->children[i]->pid > node->children[j]->pid)
