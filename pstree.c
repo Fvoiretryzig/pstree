@@ -97,7 +97,7 @@ void save_info(char* dirname)
 		content_after_colon = strtok(NULL, ":");
 		if(header != NULL && content != NULL)
 		{
-			if(content_after_conlon != NULL)
+			if(content_after_colon != NULL)
 				strcat(content, content_after_conlon);
 			remove_space(header); remove_space(content);
 			strcpy(&content[strlen(content)-1], "\0");
