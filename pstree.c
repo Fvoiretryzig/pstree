@@ -101,6 +101,7 @@ void save_info(char* dirname)
 		if(content != NULL && header != NULL)
 		for(int i = 0; i<strlen(header); i++)
 		{
+			printf("content:%s\n", content);
 			strcpy(&content[i], " ");
 		}
 		printf("content:%s\n", content);
