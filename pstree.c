@@ -96,6 +96,7 @@ void save_info(char* dirname)
 		if(header != NULL && content != NULL)
 		{
 			strcpy(&header[strlen(header)-1], "\0");
+			printf("header:%s\n", header);
 			remove_space(header); remove_space(content);
 			strcpy(&content[strlen(content)-1], "\0");
 			//printf("header:%s content:%s\n", header, content);
