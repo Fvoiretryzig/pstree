@@ -92,8 +92,9 @@ void save_info(char* dirname)
 	while(fgets(buffer, sizeof(buffer), pstree_file) != NULL)
 	{
 		header = strtok(buffer, ":");	//以冒号为标志分割
-		content = strtok(NULL, ":");
-		//content_after_colon = strtok(NULL, ":");
+		//content = strtok(NULL, ":");
+		strcpy(content, &buffer[strlen(header)-1]);
+		printf("content:%s\n", content);
 		if(header != NULL && content != NULL)
 		{
 			remove_space(header); remove_space(content);
