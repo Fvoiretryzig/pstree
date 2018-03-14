@@ -147,11 +147,11 @@ void create_tree()
 			cur_node->parent = parent_node;
 			if(cur_node->if_thread)
 			{
-				printf("pid:%d ppid:%d thread_cnt:%d\n", cur_node->pid, parent_node->pid, parent_node->thread_cnt);
+				//printf("pid:%d ppid:%d thread_cnt:%d\n", cur_node->pid, parent_node->pid, parent_node->thread_cnt);
 				parent_node->thread[parent_node->thread_cnt] = cur_node;
 				parent_node->thread_cnt++;
 				parent_node->thread[parent_node->thread_cnt] = NULL;
-				printf("pid:%d ppid:%d thread_cnt:%d\n\n", cur_node->pid, parent_node->pid, parent_node->thread_cnt);
+				//printf("pid:%d ppid:%d thread_cnt:%d\n\n", cur_node->pid, parent_node->pid, parent_node->thread_cnt);
 			}
 			else
 			{
@@ -236,11 +236,14 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			break;		
 		default:	//默认
 			if(root->if_thread)
+			{
 				printf("{%s}(pid:%d)\n", root->name, root->pid);
+			}
 			else
 				printf("%s(pid:%d)\n", root->name, root->pid);
 			if(root->if_thread)
 			{
+				printf("hahaha\n");
 				for(int i = 0; i<root->thread_cnt; i++)
 				{
 					temp = root->thread[i];
