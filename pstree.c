@@ -72,8 +72,8 @@ void save_info(char* dirname)
 	char proc_ppid[32];
 	char proc_tgid[32];
 	char buffer[256];
-	char* header;
-	char* content;
+	char* header = NULL;
+	char* content = NULL;
 	int flag = 0;
 	int if_thread = 0;
 	
