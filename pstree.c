@@ -98,7 +98,10 @@ void save_info(char* dirname)
 		if(header != NULL && content != NULL)
 		{
 			if(content_after_colon != NULL)
+			{
+				strcat(content, ":");
 				strcat(content, content_after_colon);
+			}
 			remove_space(header); remove_space(content);
 			strcpy(&content[strlen(content)-1], "\0");
 			//printf("header:%s content:%s\n", header, content);
