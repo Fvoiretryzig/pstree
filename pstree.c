@@ -189,7 +189,14 @@ void pstree_node_sort(struct pstree_node *node, int mode)
 				int len = len_i>len_j?len_j:len_i;
 				for(int k = 0; k<len; k++)
 				{
-					if(node->thread[i]->name[k] > node->thread[j]->name[k])
+					char temp_cmp1; char temp_cmp2;
+					temp_cmp1 = node->thread[i]->name[k];
+					temp_cmp2 = node->thread[j]->name[k];
+					if(temp_cmp1 < 0x61)
+						temp_cmp1 += 0x20;
+					if(temp_cmp2 < 0x61)
+						temp_cmp2 += 0x20;
+					if(temp_cmp1 > temp_cmp2)
 					{
 						struct pstree_node *temp = node->thread[i];
 						node->thread[i] = node->thread[j];
@@ -229,7 +236,14 @@ void pstree_node_sort(struct pstree_node *node, int mode)
 				int len = len_i>len_j?len_j:len_i;
 				for(int k = 0; k<len; k++)
 				{
-					if(node->children[i]->name[k] > node->children[j]->name[k])
+					char temp_cmp1; char temp_cmp2;
+					temp_cmp1 = node->children[i]->name[k];
+					temp_cmp2 = node->children[j]->name[k];
+					if(temp_cmp1 < 0x61)
+						temp_cmp1 += 0x20;
+					if(temp_cmp2 < 0x61)
+						temp_cmp2 += 0x20;
+					if(temp_cmp1 > temp_cmp2)
 					{
 						struct pstree_node *temp = node->children[i];
 						node->children[i] = node->children[j];
