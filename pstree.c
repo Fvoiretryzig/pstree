@@ -56,6 +56,7 @@ void insert_list(char *proc_name, pid_t proc_pid, pid_t proc_ppid, int if_thread
 	node->pid = proc_pid; node->ppid = proc_ppid;
 	node->children[0] = NULL; node->parent = NULL; node->thread[0] = NULL;
 	node->if_thread = if_thread;
+	printf("pid:%d if_thread:%d\n", node->pid, node->if_thread);
 	//printf("pid:%d ppid:%d\n", proc_pid, proc_ppid);
 	node->next = list_head;
 	list_head = node;
@@ -115,12 +116,8 @@ void save_info(char* dirname)
 		if_thread = 1;
 	}
 	if(flag) 
-	{
-		printf("flag is true, filename:%s, ppid:%d\n", dirname, atoi(proc_ppid));
-		insert_list(&proc_name[0], atoi(proc_pid), atoi(proc_ppid), if_thread);
-			
-	}
-	//printf("this is %s\n", proc_name);
+		insert_list(&proc_name[0], atoi(proc_pid), atoi(proc_ppid), if_thread);			
+	//printf("flag is true, filename:%s, ppid:%d\n", dirname, atoi(proc_ppid));
 	return;
 }
 /*---------找节点---------*/
