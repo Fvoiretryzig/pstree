@@ -56,7 +56,7 @@ void insert_list(char *proc_name, pid_t proc_pid, pid_t proc_ppid, int if_thread
 	node->pid = proc_pid; node->ppid = proc_ppid;
 	node->children[0] = NULL; node->parent = NULL; node->thread[0] = NULL;
 	node->if_thread = if_thread;
-	printf("pid:%d if_thread:%d\n", node->pid, node->if_thread);
+	//printf("pid:%d if_thread:%d\n", node->pid, node->if_thread);
 	//printf("pid:%d ppid:%d\n", proc_pid, proc_ppid);
 	node->next = list_head;
 	list_head = node;
@@ -144,13 +144,14 @@ void create_tree()
 			parent_node = find_node(cur_node->ppid);
 		if(parent_node != NULL)
 		{
-			//printf("parent_node:%d children:%d parent_children:%d\n", parent_node->pid, cur_node->pid, parent_node->children_cnt);
 			cur_node->parent = parent_node;
 			if(cur_node->if_thread)
 			{
+				printf("pid:%d ppid:%d thread_cnt:%d", cur_node->pid, parent_node->pid, parent_node->thread_cnt);
 				parent_node->thread[parent_node->thread_cnt] = cur_node;
 				parent_node->thread_cnt++;
 				parent_node->thread[parent_node->thread_cnt] = NULL;
+				printf("pid:%d ppid:%d thread_cnt:%d", cur_node->pid, parent_node->pid, parent_node->thread_cnt);
 			}
 			else
 			{
