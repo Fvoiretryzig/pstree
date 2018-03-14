@@ -91,6 +91,7 @@ void save_info(char* dirname)
 	/*--------从status文件中读取ppid和pid以及name--------*/
 	while(fgets(buffer, sizeof(buffer), pstree_file) != NULL)
 	{
+		printf("buffer:%s\n", buffer);
 		header = strtok(buffer, ":");	//以冒号为标志分割
 		//content = strtok(NULL, ":");
 		strcpy(content, &buffer[strlen(header)-1]);
