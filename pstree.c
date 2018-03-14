@@ -236,20 +236,14 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			break;		
 		default:	//默认
 			if(root->if_thread)
-			{
 				printf("{%s}(pid:%d)\n", root->name, root->pid);
-			}
 			else
 				printf("%s(pid:%d)\n", root->name, root->pid);
-			if(root->if_thread)
+			for(int i = 0; i<root->thread_cnt; i++)
 			{
-				printf("hahaha\n");
-				for(int i = 0; i<root->thread_cnt; i++)
-				{
-					temp = root->thread[i];
-					print_tree(0, temp, ++layer);
-					layer--;
-				}
+				temp = root->thread[i];
+				print_tree(0, temp, ++layer);
+				layer--;
 			}
 			for(int i = 0; i<root->children_cnt; i++)
 			{
