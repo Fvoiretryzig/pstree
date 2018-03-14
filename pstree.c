@@ -94,7 +94,7 @@ void save_info(char* dirname)
 	{
 		header = strtok(buffer, ":");	//以冒号为标志分割
 		content = strtok(NULL, ":");
-		content_after_colon = strtok(NULL);
+		content_after_colon = strtok(NULL, ":");
 		if(header != NULL && content != NULL)
 		{
 			if(content_after_conlon != NULL)
