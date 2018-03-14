@@ -147,11 +147,11 @@ void create_tree()
 			cur_node->parent = parent_node;
 			if(cur_node->if_thread)
 			{
-				printf("pid:%d ppid:%d thread_cnt:%d", cur_node->pid, parent_node->pid, parent_node->thread_cnt);
+				printf("pid:%d ppid:%d thread_cnt:%d\n", cur_node->pid, parent_node->pid, parent_node->thread_cnt);
 				parent_node->thread[parent_node->thread_cnt] = cur_node;
 				parent_node->thread_cnt++;
 				parent_node->thread[parent_node->thread_cnt] = NULL;
-				printf("pid:%d ppid:%d thread_cnt:%d", cur_node->pid, parent_node->pid, parent_node->thread_cnt);
+				printf("pid:%d ppid:%d thread_cnt:%d\n\n", cur_node->pid, parent_node->pid, parent_node->thread_cnt);
 			}
 			else
 			{
