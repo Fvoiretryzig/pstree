@@ -79,7 +79,7 @@ void save_info(char* dirname)
 	FILE* pstree_file;
 	/*--------打开每个进程里面的status--------*/
 	strcpy(filename, dirname);
-	printf("filename:%s\n", filename);
+	//printf("filename:%s\n", filename);
 	strcat(filename, "/status");
 	pstree_file = fopen(filename, "r");
 	if(pstree_file == NULL)
@@ -115,7 +115,11 @@ void save_info(char* dirname)
 		if_thread = 1;
 	}
 	if(flag) 
+	{
+		printf("flag is true, filename:%s\n", dirname);
 		insert_list(&proc_name[0], atoi(proc_pid), atoi(proc_ppid), if_thread);
+			
+	}
 	//printf("this is %s\n", proc_name);
 	return;
 }
