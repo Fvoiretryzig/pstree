@@ -116,7 +116,7 @@ void save_info(char* dirname)
 	}
 	if(flag) 
 	{
-		printf("flag is true, filename:%s\n", dirname);
+		printf("flag is true, filename:%s, ppid:%d\n", dirname, atoi(proc_ppid));
 		insert_list(&proc_name[0], atoi(proc_pid), atoi(proc_ppid), if_thread);
 			
 	}
