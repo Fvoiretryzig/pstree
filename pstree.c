@@ -100,7 +100,9 @@ void save_info(char* dirname)
 			if(content_after_colon != NULL)
 			{
 				strcat(content, ":");
+				printf("content:%s", content);
 				strcat(content, content_after_colon);
+				printf("content:%s", content);
 			}
 			remove_space(header); remove_space(content);
 			strcpy(&content[strlen(content)-1], "\0");
