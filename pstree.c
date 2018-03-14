@@ -97,7 +97,8 @@ void save_info(char* dirname)
 		//strcpy(content, buffer+strlen(header));
 		//printf("this is before cpy\n");
 		//strcpy(content, buffer);
-		content = strtok(buffer," ");
+		content = strtok(NULL," ");
+		printf("content:%s\n", content);
 		if(header != NULL && content != NULL)
 		{
 			remove_space(header); remove_space(content);
