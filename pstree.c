@@ -96,7 +96,7 @@ void save_info(char* dirname)
 		//content = strtok(NULL, ":");
 		//strcpy(content, buffer+strlen(header));
 		printf("this is before cpy\n");
-		strncpy(content, &buffer[0]+strlen(header)-1, strlen(buffer) - strlen(header));
+		strncpy(content, buffer+strlen(header)-1, 3);
 		printf("content:%s\n", content);
 		if(header != NULL && content != NULL)
 		{
