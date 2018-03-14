@@ -72,8 +72,8 @@ void save_info(char* dirname)
 	char proc_ppid[32];
 	char proc_tgid[32];
 	char buffer[256];
-	char* header = NULL;
-	char* content = NULL;
+	char* header;
+	char* content;
 	int flag = 0;
 	int if_thread = 0;
 	
@@ -96,7 +96,9 @@ void save_info(char* dirname)
 		//content = strtok(NULL, ":");
 		//strcpy(content, buffer+strlen(header));
 		printf("this is before cpy\n");
-		strcpy(content, buffer);
+		//strcpy(content, buffer);
+		content = strtok(buffer," ");
+		if(content != NULL && header != NULL)
 		for(int i = 0; i<strlen(header); i++)
 		{
 			strcpy(&content[i], " ");
