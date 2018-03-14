@@ -95,7 +95,7 @@ void save_info(char* dirname)
 		header = strtok(buffer, ":");	//以冒号为标志分割
 		//content = strtok(NULL, ":");
 		//strcpy(content, buffer+strlen(header));
-		printf("this is before cpy\n");
+		//printf("this is before cpy\n");
 		//strcpy(content, buffer);
 		content = strtok(buffer," ");
 		if(content != NULL && header != NULL)
