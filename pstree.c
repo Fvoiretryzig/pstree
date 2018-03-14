@@ -299,7 +299,7 @@ int main(int argc, char *argv[])
 	    	    	{
 	    	    		while((task_entry=readdir(task_dirptr)))	//读取task里面的东西
 	    	    		{
-	    	    			if(proc_entry->d_type == DT_DIR)
+	    	    			if(task_entry->d_name[0]>48 && task_entry->d_name[0]<=57)
 	    	    			{
 	    	    				strcpy(&dirname[0], &temp_dirname[0]);	//相当于初始化一下不然会持续接在上一个名字后面
 		    	    			strcat(&dirname[0], task_entry->d_name);
