@@ -74,7 +74,6 @@ void save_info(char* dirname)
 	char buffer[256];
 	char* header;
 	char* content;
-	char* content_after_colon;
 	int flag = 0;
 	int if_thread = 0;
 	
@@ -92,18 +91,11 @@ void save_info(char* dirname)
 	/*--------从status文件中读取ppid和pid以及name--------*/
 	while(fgets(buffer, sizeof(buffer), pstree_file) != NULL)
 	{
-		header = strtok(buffer, ":");	//以冒号为标志分割
-		content = strtok(NULL, ":");
-		content_after_colon = strtok(NULL, ":");
+		header = strtok(buffer, " ");	//以冒号为标志分割
+		content = strtok(NULL, " ");
 		if(header != NULL && content != NULL)
 		{
-			if(content_after_colon != NULL)
-			{
-				strcat(content, ":");
-				printf("content:%s\n", content);
-				strcat(content, content_after_colon);
-				printf("content:%s\n", content);
-			}
+			strcpy(header[strlen(header)-1], "\0");
 			remove_space(header); remove_space(content);
 			strcpy(&content[strlen(content)-1], "\0");
 			//printf("header:%s content:%s\n", header, content);
