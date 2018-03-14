@@ -80,7 +80,6 @@ void save_info(char* dirname)
 	FILE* pstree_file;
 	/*--------打开每个进程里面的status--------*/
 	strcpy(filename, dirname);
-	//printf("filename:%s\n", filename);
 	strcat(filename, "/status");
 	pstree_file = fopen(filename, "r");
 	if(pstree_file == NULL)
@@ -91,18 +90,12 @@ void save_info(char* dirname)
 	/*--------从status文件中读取ppid和pid以及name--------*/
 	while(fgets(buffer, sizeof(buffer), pstree_file) != NULL)
 	{
-		//printf("buffer:%s\n", buffer);
 		header = strtok(buffer, ":");	//以冒号为标志分割
-		//content = strtok(NULL, ":");
-		//strcpy(content, buffer+strlen(header));
-		//printf("this is before cpy\n");
-		//strcpy(content, buffer);
-		content = strtok(NULL," ");
+		content = strtok(NULL," ");		//有的文件名字里面有冒号
 		if(header != NULL && content != NULL)
 		{
 			remove_space(header); remove_space(content);
 			strcpy(&content[strlen(content)-1], "\0");
-			//printf("header:%s content:%s\n", header, content);
 			if(!strcmp(header, "Name"))
 				strcpy(proc_name, content);
 			else if(!strcmp(header, "Pid"))
@@ -122,7 +115,6 @@ void save_info(char* dirname)
 	}
 	if(flag) 
 		insert_list(&proc_name[0], atoi(proc_pid), atoi(proc_ppid), if_thread);			
-	//printf("flag is true, filename:%s, ppid:%d\n", dirname, atoi(proc_ppid));
 	return;
 }
 /*---------找节点---------*/
@@ -152,11 +144,9 @@ void create_tree()
 			cur_node->parent = parent_node;
 			if(cur_node->if_thread)
 			{
-				//printf("pid:%d ppid:%d thread_cnt:%d\n", cur_node->pid, parent_node->pid, parent_node->thread_cnt);
 				parent_node->thread[parent_node->thread_cnt] = cur_node;
 				parent_node->thread_cnt++;
 				parent_node->thread[parent_node->thread_cnt] = NULL;
-				//printf("pid:%d ppid:%d thread_cnt:%d\n\n", cur_node->pid, parent_node->pid, parent_node->thread_cnt);
 			}
 			else
 			{
@@ -164,28 +154,92 @@ void create_tree()
 				parent_node->children_cnt++;
 				parent_node->children[parent_node->children_cnt] = NULL;
 			}
-			//printf("parent_node:%d children:%d parent_children:%d\n\n", parent_node->pid, cur_node->pid, parent_node->children_cnt);
 		}
 	}
 	return;
 }
 /*---------一个简单的排序---------*/
-void pstree_node_sort(struct pstree_node *node)
+void pstree_node_sort(struct pstree_node *node, int mode)
 {
-	int n = node->children_cnt;
-	for(int i = 0; i<n; i++)
+	if(mode == 0)	//给线程进行编号排序
 	{
-		for(int j = i+1; j<n; j++)
+		int n = node->thread_cnt;
+		for(int i = 0; i<n; i++)
 		{
-			//printf("children[i]:%d children[j]:%d\n",node->children[i]->pid, node->children[j]->pid );
-			if(node->children[i]->pid > node->children[j]->pid)
+			for(int j = i+1; j<n; j++)
 			{
-				struct pstree_node *temp = node->children[i];
-				node->children[i] = node->children[j];
-				node->children[j] = temp;
+				if(node->thread[i]->pid > node->thread[j]->pid)
+				{
+					struct pstree_node *temp = node->thread[i];
+					node->thread[i] = node->thread[j];
+					node->thread[j] = temp;
+				}
 			}
-			//printf("children[i]:%d children[j]:%d\n\n",node->children[i]->pid, node->children[j]->pid );
+		}		
+	}
+	else if(mode == 1)	//给线程进行首字母排序
+	{
+		int n = node->thread_cnt;
+		for(int i = 0; i<n; i++)
+		{
+			for(int j = i+1; j<n; j++)
+			{
+				int len_i = strlen(node->thread[i]->name;
+				int len_j = strlen(node->thread[j]->name);
+				int len = len_i>len_j?len_j:len_i;
+				for(int k = 0; k<len; k++)
+				{
+					if(node->thread[i]->name[k] > node->thread[j]->name[k])
+					{
+						struct pstree_node *temp = node->thread[i];
+						node->thread[i] = node->thread[j];
+						node->thread[j] = temp;
+					}					
+					break;
+				}
+
+			}
+		}		
+	}
+	else if(mode == 2)	//给孩子进程进行编号排序
+	{
+		int n = node->children_cnt;
+		for(int i = 0; i<n; i++)
+		{
+			for(int j = i+1; j<n; j++)
+			{
+				if(node->children[i]->pid > node->children[j]->pid)
+				{
+					struct pstree_node *temp = node->children[i];
+					node->children[i] = node->children[j];
+					node->children[j] = temp;
+				}
+			}
 		}
+	}
+	else if(mode == 3)	//给孩子进程进行名字排序
+	{
+		int n = node->children_cnt;
+		for(int i = 0; i<n; i++)
+		{
+			for(int j = i+1; j<n; j++)
+			{
+				int len_i = strlen(node->children[i]->name;
+				int len_j = strlen(node->children[j]->name);
+				int len = len_i>len_j?len_j:len_i;
+				for(int k = 0; k<len; k++)
+				{
+					if(node->children[i]->name[k] > node->children[j]->name[k])
+					{
+						struct pstree_node *temp = node->children[i];
+						node->children[i] = node->children[j];
+						node->children[j] = temp;
+					}					
+					break;
+				}
+
+			}
+		}			
 	}
 }
 /*---------打印树---------*/
@@ -208,7 +262,7 @@ void print_tree(int option, struct pstree_node *root, int layer)
 		printf("|--");
 	switch(option)
 	{
-		case 1:		//打印pid的选项
+		case 1:		//-p选项
 			printf("(pid:%d)%s", root->pid, root->name);
 			for(int i = 0; i<root->children_cnt; i++)
 			{
@@ -217,10 +271,10 @@ void print_tree(int option, struct pstree_node *root, int layer)
 				layer--;
 			}
 			break;
-		case 2:
+		case 2:		//-n选项
 			printf("%s", root->name);
 			if(root->children[1]!=NULL)
-				pstree_node_sort(root);
+				pstree_node_sort(root,2);
 			for(int i = 0; i<root->children_cnt; i++)
 			{
 				temp = root->children[i];
@@ -228,10 +282,10 @@ void print_tree(int option, struct pstree_node *root, int layer)
 				layer--;
 			}
 			break;
-		case 3:
+		case 3:		//-p -n选项
 			printf("(pid:%d)%s",root->pid, root->name);
 			if(root->children[1]!=NULL)
-				pstree_node_sort(root);
+				pstree_node_sort(root,2);
 			for(int i = 0; i<root->children_cnt; i++)
 			{
 				temp = root->children[i];
@@ -240,6 +294,10 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			}
 			break;		
 		default:	//默认
+			if(root->children[1]!=NULL)
+				pstree_node_sort(root, 3);
+			if(root->thread[1]!=NULL)
+				pstree_node_sort(root, 1);
 			if(root->if_thread)
 				printf("{%s}(pid:%d)\n", root->name, root->pid);
 			else
