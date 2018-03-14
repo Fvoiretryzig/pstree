@@ -282,9 +282,9 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			if(root->thread[1]!=NULL)
 				pstree_node_sort(root, 1);
 			if(root->if_thread)
-				printf("{%s}(pid:%d)\n", root->name, root->pid);
+				printf("{%s}(pid:%d)\n", root->name);
 			else
-				printf("%s(pid:%d)\n", root->name, root->pid);
+				printf("%s(pid:%d)\n", root->name);
 			for(int i = 0; i<root->children_cnt; i++)
 			{
 				temp = root->children[i];
@@ -298,9 +298,9 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			if(root->thread[1]!=NULL)
 				pstree_node_sort(root, 0);
 			if(root->if_thread)
-				printf("{%s}\n", root->name, root->pid);
+				printf("{%s}\n", root->name);
 			else
-				printf("%s\n", root->name, root->pid);			
+				printf("%s\n", root->name);			
 			if(root->children[1]!=NULL)
 				pstree_node_sort(root,2);
 			for(int i = 0; i<root->children_cnt; i++)
@@ -334,9 +334,9 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			if(root->thread[1]!=NULL)
 				pstree_node_sort(root, 1);
 			if(root->if_thread)
-				printf("{%s}\n", root->name, root->pid);
+				printf("{%s}\n", root->name);
 			else
-				printf("%s\n", root->name, root->pid);
+				printf("%s\n", root->name);
 			for(int i = 0; i<root->thread_cnt; i++)
 			{
 				temp = root->thread[i];
