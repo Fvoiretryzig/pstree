@@ -95,7 +95,7 @@ void save_info(char* dirname)
 		if(header != NULL && content != NULL)
 		{
 			remove_space(header); remove_space(content);
-			strcpy(&content[strlen(content)-1], 0);
+			strcpy(&content[strlen(content)-1], '\0');
 			//printf("header:%s content:%s\n", header, content);
 			if(!strcmp(header, "Name"))
 				strcpy(proc_name, content);
@@ -302,11 +302,12 @@ int main(int argc, char *argv[])
 	    	    			save_info(dirname);
 	    	    			
 	    	    		}
+	    	    		closedir(task_dirptr);
 	    	    	}
     	    	}
     	    }
         }
-    	closedir(dirptr);
+    	closedir(proc_dirptr);
     }
 	create_tree();
 	/*---------对于不同参数的处理--------*/
