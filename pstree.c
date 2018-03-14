@@ -285,9 +285,11 @@ int main(int argc, char *argv[])
     	    {
     	    	if(proc_entry->d_name[0]>48 && proc_entry->d_name[0]<=57)
     	    	{
+    	    		char temp_dirname[256];
 	    	    	strcpy(&dirname[0], "/proc/");
 	    	    	strcat(&dirname[0], proc_entry->d_name);
 	    	    	strcat(&dirname[0], "/task/");
+	    	    	strcpy(&temp_dirname[0], &dirname[0]);
 	    	    	if((task_dirptr = opendir(&dirname[0]))==NULL)
 	    	    	{
 	    	    		printf("opendir failed while reading task\n");
@@ -297,9 +299,12 @@ int main(int argc, char *argv[])
 	    	    	{
 	    	    		while((task_entry=readdir(task_dirptr)))	//读取task里面的东西
 	    	    		{
-	    	    			//task里面都是文件夹就不判断是不是文件了
-	    	    			strcat(&dirname[0], task_entry->d_name);
-	    	    			save_info(dirname);
+	    	    			if(proc_entry->d_type == DT_DIR)
+	    	    			{
+	    	    				strcpy(&dirname[0], &temp_dirname[0]);	//相当于初始化一下不然会持续接在上一个名字后面
+		    	    			strcat(&dirname[0], task_entry->d_name);
+		    	    			save_info(dirname);
+	    	    			}
 	    	    			
 	    	    		}
 	    	    		closedir(task_dirptr);
