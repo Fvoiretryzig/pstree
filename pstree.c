@@ -184,7 +184,7 @@ void pstree_node_sort(struct pstree_node *node, int mode)
 		{
 			for(int j = i+1; j<n; j++)
 			{
-				int len_i = strlen(node->thread[i]->name;
+				int len_i = strlen(node->thread[i]->name);
 				int len_j = strlen(node->thread[j]->name);
 				int len = len_i>len_j?len_j:len_i;
 				for(int k = 0; k<len; k++)
@@ -224,7 +224,7 @@ void pstree_node_sort(struct pstree_node *node, int mode)
 		{
 			for(int j = i+1; j<n; j++)
 			{
-				int len_i = strlen(node->children[i]->name;
+				int len_i = strlen(node->children[i]->name);
 				int len_j = strlen(node->children[j]->name);
 				int len = len_i>len_j?len_j:len_i;
 				for(int k = 0; k<len; k++)
