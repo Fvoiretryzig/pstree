@@ -277,7 +277,14 @@ void print_tree(int option, struct pstree_node *root, int layer)
 	switch(option)
 	{
 		case 1:		//-p选项
-			printf("(pid:%d)%s", root->pid, root->name);
+			if(root->children[1]!=NULL)
+				pstree_node_sort(root, 3);
+			if(root->thread[1]!=NULL)
+				pstree_node_sort(root, 1);
+			if(root->if_thread)
+				printf("{%s}(pid:%d)\n", root->name, root->pid);
+			else
+				printf("%s(pid:%d)\n", root->name, root->pid);
 			for(int i = 0; i<root->children_cnt; i++)
 			{
 				temp = root->children[i];
@@ -286,7 +293,14 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			}
 			break;
 		case 2:		//-n选项
-			printf("%s", root->name);
+			if(root->children[1]!=NULL)
+				pstree_node_sort(root, 2);
+			if(root->thread[1]!=NULL)
+				pstree_node_sort(root, 0);
+			if(root->if_thread)
+				printf("{%s}\n", root->name, root->pid);
+			else
+				printf("%s\n", root->name, root->pid);			
 			if(root->children[1]!=NULL)
 				pstree_node_sort(root,2);
 			for(int i = 0; i<root->children_cnt; i++)
@@ -297,7 +311,14 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			}
 			break;
 		case 3:		//-p -n选项
-			printf("(pid:%d)%s",root->pid, root->name);
+			if(root->children[1]!=NULL)
+				pstree_node_sort(root, 2);
+			if(root->thread[1]!=NULL)
+				pstree_node_sort(root, 0);
+			if(root->if_thread)
+				printf("{%s}(pid:%d)\n", root->name, root->pid);
+			else
+				printf("%s(pid:%d)\n", root->name, root->pid);			
 			if(root->children[1]!=NULL)
 				pstree_node_sort(root,2);
 			for(int i = 0; i<root->children_cnt; i++)
@@ -313,9 +334,9 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			if(root->thread[1]!=NULL)
 				pstree_node_sort(root, 1);
 			if(root->if_thread)
-				printf("{%s}(pid:%d)\n", root->name, root->pid);
+				printf("{%s}\n", root->name, root->pid);
 			else
-				printf("%s(pid:%d)\n", root->name, root->pid);
+				printf("%s\n", root->name, root->pid);
 			for(int i = 0; i<root->thread_cnt; i++)
 			{
 				temp = root->thread[i];
