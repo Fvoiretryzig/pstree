@@ -16,7 +16,10 @@ struct pstree_node
 	pid_t pid;
 	pid_t ppid;
 	int children_cnt;
+	int thread_cnt;
+	int if_thread;
 	struct pstree_node *parent;
+	struct pstree_node *thread[128];
 	struct pstree_node *children[128];
 	struct pstree_node *next;
 };
@@ -40,7 +43,7 @@ void remove_space(char* s)
 	return;
 }
 /*----------建链表为了以后建树----------*/
-void insert_list(char *proc_name, pid_t proc_pid, pid_t proc_ppid)	
+void insert_list(char *proc_name, pid_t proc_pid, pid_t proc_ppid, int if_thread)	
 {
 	struct pstree_node *node = (struct pstree_node*)malloc(sizeof(struct pstree_node));	
 	if (node == NULL) 	
@@ -48,10 +51,11 @@ void insert_list(char *proc_name, pid_t proc_pid, pid_t proc_ppid)
 		printf("malloc failed\n");
 		return;
 	}	
-	node->children_cnt = 0;
+	node->children_cnt = 0; node->thread_cnt = 0;
 	strcpy(node->name, proc_name);
 	node->pid = proc_pid; node->ppid = proc_ppid;
-	node->children[0] = NULL; node->parent = NULL;
+	node->children[0] = NULL; node->parent = NULL; node->thread[0] = NULL;
+	node->if_thread = if_thread;
 	//printf("pid:%d ppid:%d\n", proc_pid, proc_ppid);
 	node->next = list_head;
 	list_head = node;
@@ -65,10 +69,12 @@ void save_info(char* dirname)
 	char proc_name[256];
 	char proc_pid[32];
 	char proc_ppid[32];
+	char proc_tgid[32];
 	char buffer[256];
 	char* header;
 	char* content;
 	int flag = 0;
+	int if_thread = 0;
 	
 	FILE* pstree_file;
 	/*--------打开每个进程里面的status--------*/
@@ -89,6 +95,7 @@ void save_info(char* dirname)
 		if(header != NULL && content != NULL)
 		{
 			remove_space(header); remove_space(content);
+			strcpy(&content[strlen(content)-1], 0);
 			//printf("header:%s content:%s\n", header, content);
 			if(!strcmp(header, "Name"))
 				strcpy(proc_name, content);
@@ -96,12 +103,19 @@ void save_info(char* dirname)
 				strcpy(proc_pid, content);
 			else if(!strcmp(header, "PPid"))
 				strcpy(proc_ppid, content);
+			else if(!strcmp(header, "Tgid"))
+				strcpy(proc_tgid, content);
 			else if(!strcmp(header, "VmPeak"))
 				flag = 1;
 		}
 	}
+	if(strcmp(&proc_pid[0], &proc_tgid[0]))
+	{
+		strcpy(&proc_ppid[0], &proc_tgid[0]);
+		if_thread = 1;
+	}
 	if(flag) 
-		insert_list(&proc_name[0], atoi(proc_pid), atoi(proc_ppid));
+		insert_list(&proc_name[0], atoi(proc_pid), atoi(proc_ppid), if_thread);
 	//printf("this is %s\n", proc_name);
 	return;
 }
@@ -131,31 +145,24 @@ void create_tree()
 		{
 			//printf("parent_node:%d children:%d parent_children:%d\n", parent_node->pid, cur_node->pid, parent_node->children_cnt);
 			cur_node->parent = parent_node;
-			parent_node->children[parent_node->children_cnt] = cur_node;
-			parent_node->children_cnt++;
-			parent_node->children[parent_node->children_cnt] = NULL;
+			if(cur_node->if_thread)
+			{
+				parent_node->thread[parent_node->thread_cnt] = cur_node;
+				parent_node->thread_cnt++;
+				parent_node->thread[parent_node->thread_cnt] = NULL;
+			}
+			else
+			{
+				parent_node->children[parent_node->children_cnt] = cur_node;
+				parent_node->children_cnt++;
+				parent_node->children[parent_node->children_cnt] = NULL;
+			}
 			//printf("parent_node:%d children:%d parent_children:%d\n\n", parent_node->pid, cur_node->pid, parent_node->children_cnt);
 		}
 	}
 	return;
 }
 /*---------一个简单的排序---------*/
-/*void sort(int a[], int n)
-{
-	for(int i = 0; i<n; i++)
-	{
-		for(int j = 0; j< n-i-1; j++)
-		{
-			if(a[i] > a[j])
-			{
-				int temp = a[i];
-				a[i] = a[j];
-				a[j] = temp;
-			}
-		}
-	}
-	return;
-}*/
 void pstree_node_sort(struct pstree_node *node)
 {
 	int n = node->children_cnt;
@@ -226,7 +233,19 @@ void print_tree(int option, struct pstree_node *root, int layer)
 			}
 			break;		
 		default:	//默认
-			printf("%s", root->name);
+			if(root->if_thread)
+				printf("{%s}(pid:%d)\n", root->name, root->pid);
+			else
+				printf("%s(pid:%d)\n", root->name, root->pid);
+			if(root->if_thread)
+			{
+				for(int i = 0; i<root->thread_cnt; i++)
+				{
+					temp = root->thread[i];
+					print_tree(0, temp, ++layer);
+					layer--;
+				}
+			}
 			for(int i = 0; i<root->children_cnt; i++)
 			{
 				temp = root->children[i];
@@ -248,36 +267,49 @@ int main(int argc, char *argv[])
 	}
 	assert(!argv[argc]); // specification
 	/*--------打开文件--------*/
-	DIR *dirptr=NULL;
-    struct dirent *entry;
+	DIR *proc_dirptr = NULL;
+	DIR *task_dirptr = NULL;
+    struct dirent *proc_entry;
+    struct dirent *task_entry;
     char dirname[256];
-    if((dirptr = opendir("/proc"))==NULL)
+    if((proc_dirptr = opendir("/proc"))==NULL)
     {
         printf("opendir failed!");
         return 1;
     }
     else
     {
-    	//int i = 1 ;
-        while((entry=readdir(dirptr)))
+        while((proc_entry=readdir(proc_dirptr)))
         {
-    	    //printf("filename%d=%s\n",i,entry->d_name);
-    	    //i++;
-    	    if(entry->d_type == DT_DIR)
+    	    if(proc_entry->d_type == DT_DIR)
     	    {
-    	    	strcpy(&dirname[0], "/proc/");
-    	    	strcat(&dirname[0], entry->d_name);
-    	    	if(entry->d_name[0]>48 && entry->d_name[0]<=57)
-    	    		save_info(dirname);
+    	    	if(proc_entry->d_name[0]>48 && proc_entry->d_name[0]<=57)
+    	    	{
+	    	    	strcpy(&dirname[0], "/proc/");
+	    	    	strcat(&dirname[0], proc_entry->d_name);
+	    	    	strcat(&dirname[0], "/task/");
+	    	    	if((task_dirptr = opendir(&dirname[0]))==NULL)
+	    	    	{
+	    	    		printf("opendir failed while reading task\n");
+	    	    		return 1;
+	    	    	}
+	    	    	else
+	    	    	{
+	    	    		while((task_entry=readdir(task_dirptr)))	//读取task里面的东西
+	    	    		{
+	    	    			//task里面都是文件夹就不判断是不是文件了
+	    	    			strcat(&dirname[0], task_entry->d_name);
+	    	    			save_info(dirname);
+	    	    			
+	    	    		}
+	    	    	}
+    	    	}
     	    }
         }
     	closedir(dirptr);
     }
 	create_tree();
-	/*for(struct pstree_node *node = list_head; node != NULL; node = node->next)
-	{
-		printf("name:%s(pid:%d ppid:%d)\n", node->name, node->pid, node->ppid);
-	}*/
+	/*---------对于不同参数的处理--------*/
 	if(argc > 1)
 	{
     	if(!strcmp(argv[1], "-V") || !strcmp(argv[1], "--version"))
@@ -286,10 +318,8 @@ int main(int argc, char *argv[])
     	{
     		for(struct pstree_node *node = list_head; node!=NULL; node = node->next)
 	    	{
-	    		//printf("%s pid:%d\n", node->name, node->pid);
 	    		if(node->parent == NULL)
 	    		{
-	    			//printf("|+%s pid:%d\n", node->name, node->pid);
 	    			print_tree(1, node, 0);
 	    		}
 	    	}    		
@@ -298,11 +328,8 @@ int main(int argc, char *argv[])
     	{
     		for(struct pstree_node *node = list_head; node!=NULL; node = node->next)
 	    	{
-	    		//printf("%s pid:%d\n", node->name, node->pid);
 	    		if(node->parent == NULL)
 	    		{
-	    			//printf("|+%s pid:%d\n", node->name, node->pid);
-	    			//pstree_node_sort(node);
 	    			print_tree(2, node, 0);
 	    		}
 	    	}       		
@@ -326,10 +353,8 @@ int main(int argc, char *argv[])
     {
     	for(struct pstree_node *node = list_head; node!=NULL; node = node->next)
     	{
-    		//printf("%s pid:%d\n", node->name, node->pid);
     		if(node->parent == NULL)
     		{
-    			//printf("|+%s pid:%d\n", node->name, node->pid);
     			print_tree(0, node, 0);
     		}
     	}
