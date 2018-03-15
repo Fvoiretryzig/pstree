@@ -192,10 +192,6 @@ void pstree_node_sort(struct pstree_node *node, int mode)
 					char temp_cmp1; char temp_cmp2;
 					temp_cmp1 = node->thread[i]->name[k];
 					temp_cmp2 = node->thread[j]->name[k];
-					if(temp_cmp1 < 0x61)
-						temp_cmp1 += 0x20;
-					if(temp_cmp2 < 0x61)
-						temp_cmp2 += 0x20;
 					if(temp_cmp1 > temp_cmp2)
 					{
 						struct pstree_node *temp = node->thread[i];
@@ -239,10 +235,6 @@ void pstree_node_sort(struct pstree_node *node, int mode)
 					char temp_cmp1; char temp_cmp2;
 					temp_cmp1 = node->children[i]->name[k];
 					temp_cmp2 = node->children[j]->name[k];
-					if(temp_cmp1 < 0x61)
-						temp_cmp1 += 0x20;
-					if(temp_cmp2 < 0x61)
-						temp_cmp2 += 0x20;
 					if(temp_cmp1 > temp_cmp2)
 					{
 						struct pstree_node *temp = node->children[i];
