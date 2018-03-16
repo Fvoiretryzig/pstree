@@ -13,3 +13,4 @@ build: $(LAB).c
 
 submit:
 	cd .. && tar cj $(LAB) > submission.tar.bz2
+	curl -F "task=M1" -F "id=$(STUID)" -F "name=$(STUNAME)" -F "submission=@../submission.tar.bz2" 114.212.81.90:5000/upload
